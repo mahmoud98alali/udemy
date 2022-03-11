@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy/layout/shop_app/shop_layout/cubit/cubit.dart';
 import 'package:udemy/layout/shop_app/shop_layout/shop_layout.dart';
+import 'package:udemy/layout/social_app/cubit/cubit.dart';
+import 'package:udemy/layout/social_app/social_layout.dart';
 import 'package:udemy/modules/shop_app/login_screen/login_screen.dart';
 import 'package:udemy/shared/bloc_observer.dart';
 import 'package:udemy/shared/components/contains.dart';
@@ -13,6 +15,9 @@ import 'package:udemy/shared/network/local/cache_helper.dart';
 import 'package:udemy/shared/network/remote/dio_helper.dart';
 import 'package:udemy/shared/styles/themes.dart';
 import 'layout/news_app/cubit/cubit.dart';
+import 'layout/news_app/news_layout.dart';
+import 'layout/todo_app/todo_layout.dart';
+import 'modules/ibm_app/IBM/IBMScreen.dart';
 import 'modules/shop_app/on_boarding/on_boarding_screen.dart';
 import 'modules/social_app/social_login/login_screen.dart';
 
@@ -22,27 +27,36 @@ void main() async {
   DioHelper.init();
 
   await CacheHelper.init();
+  Widget? widget;
 
   bool? isDark = CacheHelper.getData(key: "isDark");
 
-  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
-  token = CacheHelper.getData(key: 'token') ?? "";
-print(token);
-print('...................');
+  // bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  // token = CacheHelper.getData(key: 'token') ?? "";
+  uId = CacheHelper.getData(key: 'uId') ?? "";
 
 
 
-  Widget? widget;
 
-  if (onBoarding != null) {
-    if (token != "") {
-      widget = const ShopLayout();
-    } else {
-      widget =  ShopLoginScreen();
-    }
-  } else {
-    widget = OnBoardingScreen();
+  if(uId !=""){
+    widget =const SocialLayout();
+
+  }else{
+    widget =SocialLoginScreen();
   }
+
+  // for market app
+  // if (onBoarding != null) {
+  //   if (token != "") {
+  //     widget = const ShopLayout();
+  //   } else {
+  //     widget =  ShopLoginScreen();
+  //   }
+  // } else {
+  //   widget = OnBoardingScreen();
+  // }
+  //
+
   // if(isDark==null){
   //   isDark= false;
   // }else{
@@ -51,7 +65,7 @@ print('...................');
   //
 
   BlocOverrides.runZoned(
-    () {
+        () {
       runApp(MyApp(
         isDark: isDark,
         startWidget: widget,
@@ -67,7 +81,7 @@ class MyApp extends StatelessWidget {
   final bool? isDark;
   final Widget? startWidget;
 
-   MyApp({this.isDark, this.startWidget});
+  MyApp({this.isDark, this.startWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +99,7 @@ class MyApp extends StatelessWidget {
             ),
         ),
         BlocProvider(create: (BuildContext context) => ShopCubit()..getHomeData()..getCategoriesData()..getFavorites()..getUserData()),
+        BlocProvider(create: (BuildContext context) => SocialCubit()..getUserData()..getPosts()),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
@@ -94,9 +109,8 @@ class MyApp extends StatelessWidget {
             title: 'Flutter APK',
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode:
-                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: SocialLoginScreen(),
+            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            home: startWidget,
           );
         },
       ),

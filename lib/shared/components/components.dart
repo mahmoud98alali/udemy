@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:udemy/layout/social_app/cubit/cubit.dart';
 import 'package:udemy/shared/cubit/cubit.dart';
 import 'package:udemy/shared/styles/colors.dart';
 import '../../layout/shop_app/shop_layout/cubit/cubit.dart';
@@ -30,7 +31,7 @@ Widget defaultButton({
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 16,
           ),
         ),
       ),
@@ -78,7 +79,7 @@ Widget defaultFormField({
       keyboardType: keyboardType,
       decoration: InputDecoration(
         suffixIcon:
-            IconButton(icon: Icon(suffixIcon,), onPressed: suffixPressed,color: colorSuffixIcon ,),
+        IconButton(icon: Icon(suffixIcon,), onPressed: suffixPressed,color: colorSuffixIcon ,),
         labelText: labelText,
         labelStyle: labelStyle,
         prefixIcon: prefixIcon,
@@ -93,66 +94,83 @@ Widget defaultFormField({
 
     );
 
+PreferredSizeWidget defaultAppBar({
+  required BuildContext context,
+  String? title,
+  List<Widget>? actions,
+}) => AppBar(
+  leading: IconButton(
+    onPressed: (){
+      Navigator.pop(context);
+    },
+    icon: const Icon(
+        Icons.arrow_back_ios
+    ),
+  ),
+  title: Text('$title'),
+  titleSpacing: 5.0,
+  actions: actions,
+);
 Widget buildTaskItem(Map model, context) => Dismissible(
-      key: Key(model['id'].toString()),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 40,
-              child: Text('${model['time']}'),
-            ),
-            const SizedBox(
-              width: 20.0,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    '${model['title']}',
-                    style:
-                        const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '${model['date']}',
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              width: 20.0,
-            ),
-            IconButton(
-              onPressed: () {
-                AppCubit.get(context)
-                    .updateData(status: "done", id: model['id']);
-              },
-              icon: const Icon(
-                Icons.check_box,
-                color: Colors.green,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                AppCubit.get(context)
-                    .updateData(status: "archive", id: model['id']);
-              },
-              icon: const Icon(
-                Icons.archive,
-                color: Colors.black38,
-              ),
-            ),
-          ],
+  key: Key(model['id'].toString()),
+  child: Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        CircleAvatar(
+          radius: 40,
+          child: Text('${model['time']}'),
         ),
-      ),
-      onDismissed: (direction) {
-        AppCubit.get(context).deleteData(id: model['id']);
-      },
-    );
+        const SizedBox(
+          width: 20.0,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '${model['title']}',
+                style:
+                const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '${model['date']}',
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          width: 20.0,
+        ),
+        IconButton(
+          onPressed: () {
+            AppCubit.get(context)
+                .updateData(status: "done", id: model['id']);
+          },
+          icon: const Icon(
+            Icons.check_box,
+            color: Colors.green,
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            AppCubit.get(context)
+                .updateData(status: "archive", id: model['id']);
+          },
+          icon: const Icon(
+            Icons.archive,
+            color: Colors.black38,
+          ),
+        ),
+      ],
+    ),
+  ),
+  onDismissed: (direction) {
+    AppCubit.get(context).deleteData(id: model['id']);
+  },
+);
 
 Widget tasksBuilder({
   required List<Map> tasks,
@@ -186,75 +204,75 @@ Widget tasksBuilder({
     );
 
 Widget myDivider() => Container(
-      width: double.infinity,
-      height: 1.0,
-      color: Colors.grey,
-    );
+  width: double.infinity,
+  height: 1.0,
+  color: Colors.grey,
+);
 
 Widget buildArticleItem(article, context) => InkWell(
-      onTap: () {
-        navigateTo(context, WebViewScreen(article['url']));
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: [
-            Container(
-              width: 120.0,
-              height: 120.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: NetworkImage("${article['urlToImage']}"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+  onTap: () {
+    navigateTo(context, WebViewScreen(article['url']));
+  },
+  child: Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        Container(
+          width: 120.0,
+          height: 120.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            image: DecorationImage(
+              image: NetworkImage("${article['urlToImage']}"),
+              fit: BoxFit.cover,
             ),
-            const SizedBox(
-              width: 20.0,
-            ),
-            Expanded(
-              child: Container(
-                height: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${article['title']}',
-                        style: Theme.of(context).textTheme.bodyText1,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Text(
-                      '${article['publishedAt']}',
-                      style: const TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
+        const SizedBox(
+          width: 20.0,
+        ),
+        Expanded(
+          child: Container(
+            height: 120,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    '${article['title']}',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  '${article['publishedAt']}',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
 
 Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
-      condition: list.isNotEmpty,
-      builder: (context) => ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => buildArticleItem(list[index], context),
-        separatorBuilder: (context, index) => myDivider(),
-        itemCount: list.length,
-      ),
-      fallback: (context) => isSearch
-          ? Container()
-          : const Center(child: CircularProgressIndicator()),
-    );
+  condition: list.isNotEmpty,
+  builder: (context) => ListView.separated(
+    physics: const BouncingScrollPhysics(),
+    itemBuilder: (context, index) => buildArticleItem(list[index], context),
+    separatorBuilder: (context, index) => myDivider(),
+    itemCount: list.length,
+  ),
+  fallback: (context) => isSearch
+      ? Container()
+      : const Center(child: CircularProgressIndicator()),
+);
 
 void navigateTo(context, widget) => Navigator.push(
     context,
@@ -267,14 +285,15 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
     MaterialPageRoute(
       builder: (context) => widget,
     ),
-    (route) => false);
+        (route) => false);
 
 Widget defaultTextButton(
-        {required Function()? onPressed,
-        required String title,
-        TextStyle? style,
-        bool isUpperCase = true,
-        }) =>
+    {required Function()? onPressed,
+      required String title,
+      TextStyle? style,
+      bool isUpperCase = true,
+
+    }) =>
     TextButton(
       onPressed: onPressed,
       child: Text(
@@ -329,7 +348,7 @@ Widget buildListProduct(model,context,{isOldPrice = true})=>Padding(
               image: NetworkImage('${model.image}'),
               width: 120,
               height: 120,
-               // fit: BoxFit.contain,
+              // fit: BoxFit.contain,
             ),
             if (model.discount != 0 && isOldPrice)
               Container(

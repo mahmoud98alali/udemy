@@ -11,13 +11,21 @@ ThemeData darkTheme = ThemeData(
         fontWeight: FontWeight.bold,
         fontSize: 16.0
     ),
+    subtitle1: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 13.0,
+      height: 1.3
+    ),
   ) ,
+
   primarySwatch: Colors.blue,
 
   scaffoldBackgroundColor: Colors.black,
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
     titleTextStyle: TextStyle(
+        fontFamily: 'Jannha',
         color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.black,
@@ -48,6 +56,12 @@ ThemeData lightTheme = ThemeData(
         fontWeight: FontWeight.bold,
         fontSize: 16.0
     ),
+    subtitle1: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 13.0,
+        height: 1.3
+    ),
   ) ,
   primarySwatch: Colors.blue,
 
@@ -55,6 +69,7 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
     titleTextStyle: TextStyle(
+        fontFamily: 'Jannha',
         color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.white,
