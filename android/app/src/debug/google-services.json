@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "237830287747",
+    "project_id": "udmy-projcet",
+    "storage_bucket": "udmy-projcet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237830287747:android:e1d143cfe658dd21d706b6",
+        "android_client_info": {
+          "package_name": "com.example.MdUdemy.udemy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237830287747-d50po6ot9r5rrq97fttq1okc3ksftrs5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.MdUdemy.udemy",
+            "certificate_hash": "122851b10df6ee02adca821ec62031a357766cb4"
+          }
+        },
+        {
+          "client_id": "237830287747-ei9067qddamqgi3gbs6a2usmnb2q851s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmhgmcx8zv2PESOGw7Fx932PaNJR2jx9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237830287747-ei9067qddamqgi3gbs6a2usmnb2q851s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "237830287747-10qjiu0urv1jolj9bgjgtrgkcd89ad97.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.MdUdemy.udemy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
