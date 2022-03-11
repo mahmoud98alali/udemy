@@ -49,6 +49,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       name: name,
       phone: phone,
       uId: uId,
+      isEmailVerified: false,
     );
 
     FirebaseFirestore.instance

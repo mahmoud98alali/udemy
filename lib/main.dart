@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy/layout/shop_app/shop_layout/cubit/cubit.dart';
 import 'package:udemy/layout/shop_app/shop_layout/shop_layout.dart';
+import 'package:udemy/layout/social_app/cubit/cubit.dart';
+import 'package:udemy/layout/social_app/social_layout.dart';
 import 'package:udemy/modules/shop_app/login_screen/login_screen.dart';
 import 'package:udemy/shared/bloc_observer.dart';
 import 'package:udemy/shared/components/contains.dart';
@@ -22,27 +24,36 @@ void main() async {
   DioHelper.init();
 
   await CacheHelper.init();
+  Widget? widget;
 
   bool? isDark = CacheHelper.getData(key: "isDark");
 
-  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
-  token = CacheHelper.getData(key: 'token') ?? "";
-print(token);
-print('...................');
+  // bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  // token = CacheHelper.getData(key: 'token') ?? "";
+  uId = CacheHelper.getData(key: 'uId') ?? "";
 
 
 
-  Widget? widget;
 
-  if (onBoarding != null) {
-    if (token != "") {
-      widget = const ShopLayout();
-    } else {
-      widget =  ShopLoginScreen();
-    }
-  } else {
-    widget = OnBoardingScreen();
+  if(uId !=""){
+    widget =const SocialLayout();
+
+  }else{
+    widget =SocialLoginScreen();
   }
+
+  // for market app
+  // if (onBoarding != null) {
+  //   if (token != "") {
+  //     widget = const ShopLayout();
+  //   } else {
+  //     widget =  ShopLoginScreen();
+  //   }
+  // } else {
+  //   widget = OnBoardingScreen();
+  // }
+  //
+
   // if(isDark==null){
   //   isDark= false;
   // }else{
@@ -85,6 +96,7 @@ class MyApp extends StatelessWidget {
             ),
         ),
         BlocProvider(create: (BuildContext context) => ShopCubit()..getHomeData()..getCategoriesData()..getFavorites()..getUserData()),
+        BlocProvider(create: (BuildContext context) => SocialCubit()..getUserData()),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
@@ -96,7 +108,7 @@ class MyApp extends StatelessWidget {
             darkTheme: darkTheme,
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: SocialLoginScreen(),
+            home: startWidget,
           );
         },
       ),

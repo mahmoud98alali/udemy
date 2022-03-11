@@ -25,7 +25,7 @@ class SocialRegisterScreen extends StatelessWidget {
           if (state is SocialCreateUserSuccessState) {
             navigateAndFinish(
               context,
-              const SocialLayout(),
+              SocialLayout(),
             );
           }
         },
