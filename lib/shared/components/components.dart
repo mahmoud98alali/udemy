@@ -22,6 +22,7 @@ Widget defaultButton({
       ),
       height: height,
       width: width,
+
       child: MaterialButton(
         onPressed: function,
         child: Text(
@@ -59,12 +60,15 @@ Widget defaultFormField({
   bool readOnly = false,
   bool autofocus = false,
   TextStyle? style,
+  StrutStyle? strutStyle,
+  Color? colorSuffixIcon,
 }) =>
     TextFormField(
       autofocus:autofocus,
       readOnly: readOnly,
       showCursor: showCursor,
       style: style,
+      strutStyle:strutStyle ,
       cursorColor: cursorColor,
       toolbarOptions: toolbarOptions,
       obscureText: isPassword,
@@ -74,7 +78,7 @@ Widget defaultFormField({
       keyboardType: keyboardType,
       decoration: InputDecoration(
         suffixIcon:
-            IconButton(icon: Icon(suffixIcon), onPressed: suffixPressed),
+            IconButton(icon: Icon(suffixIcon,), onPressed: suffixPressed,color: colorSuffixIcon ,),
         labelText: labelText,
         labelStyle: labelStyle,
         prefixIcon: prefixIcon,

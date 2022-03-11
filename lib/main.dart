@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy/layout/shop_app/shop_layout/cubit/cubit.dart';
@@ -13,9 +14,11 @@ import 'package:udemy/shared/network/remote/dio_helper.dart';
 import 'package:udemy/shared/styles/themes.dart';
 import 'layout/news_app/cubit/cubit.dart';
 import 'modules/shop_app/on_boarding/on_boarding_screen.dart';
+import 'modules/social_app/social_login/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   DioHelper.init();
 
   await CacheHelper.init();
@@ -93,7 +96,7 @@ class MyApp extends StatelessWidget {
             darkTheme: darkTheme,
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: startWidget,
+            home: SocialLoginScreen(),
           );
         },
       ),
