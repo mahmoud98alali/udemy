@@ -1,11 +1,25 @@
 abstract class SocialStates{}
 class SocialInitialStates extends SocialStates{}
+
+// Get Users
 class SocialGetUserLoadingStates extends SocialStates{}
 class SocialGetUserSuccessStates extends SocialStates{}
 class SocialGetUserErrorStates extends SocialStates{
   final String error ;
   SocialGetUserErrorStates(this.error);
 }
+// Get All Users
+
+class SocialGetAllUsersLoadingStates extends SocialStates{}
+class SocialGetAllUsersSuccessStates extends SocialStates{}
+class SocialGetAllUsersErrorStates extends SocialStates{
+  final String error ;
+  SocialGetAllUsersErrorStates(this.error);
+}
+//****       ****       ****        ****
+
+
+
 
 class SocialChangeBottomNavStats extends SocialStates {}
 class SocialNewPostStats extends SocialStates {}
@@ -58,3 +72,14 @@ class SocialCommentsPostErrorStates extends SocialStates{
   final String error ;
   SocialCommentsPostErrorStates(this.error);
 }
+
+
+// Chats
+
+class SocialSendMessageSuccessStates extends SocialStates{}
+class SocialGetMessageSuccessStates extends SocialStates{}
+class SocialSendMessageErrorStates extends SocialStates{
+  final String error ;
+  SocialSendMessageErrorStates(this.error);
+}
+

@@ -203,10 +203,17 @@ Widget tasksBuilder({
       ),
     );
 
-Widget myDivider() => Container(
-  width: double.infinity,
-  height: 1.0,
-  color: Colors.grey,
+Widget myDivider() => Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   Container(
+
+    width: double.infinity,
+
+    height: 1.0,
+
+    color: Colors.grey,
+
+  ),
 );
 
 Widget buildArticleItem(article, context) => InkWell(

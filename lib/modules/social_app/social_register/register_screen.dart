@@ -24,7 +24,7 @@ class SocialRegisterScreen extends StatelessWidget {
           if (state is SocialCreateUserSuccessState) {
             navigateAndFinish(
               context,
-              const SocialLayout(),
+              SocialLayout(),
             );
           }
         },
@@ -39,23 +39,23 @@ class SocialRegisterScreen extends StatelessWidget {
                       image: AssetImage('assets/images/login.jpg'),
                       fit: BoxFit.cover,
                     )),
-                Column(
-                  children: [
-                    const  SizedBox(
-                      height: 30,
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.arrow_back_ios),
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+               Column(
+                 children: [
+                 const  SizedBox(
+                     height: 30,
+                   ),
+                   Align(
+                     alignment: Alignment.topLeft,
+                     child: IconButton(
+                       onPressed: () {
+                         Navigator.pop(context);
+                       },
+                       icon: const Icon(Icons.arrow_back_ios),
+                       color: Colors.black,
+                     ),
+                   ),
+                 ],
+               ),
                 Center(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -72,9 +72,9 @@ class SocialRegisterScreen extends StatelessWidget {
                                   .textTheme
                                   .headline5
                                   ?.copyWith(
-                                  fontSize: 50.0,
-                                  letterSpacing: 4,
-                                  color: Colors.pink),
+                                      fontSize: 50.0,
+                                      letterSpacing: 4,
+                                      color: Colors.pink),
                             ),
                             const Text(
                               "Register now to Communicate with friends",
@@ -141,7 +141,7 @@ class SocialRegisterScreen extends StatelessWidget {
                                 // }
                               },
                               isPassword:
-                              SocialRegisterCubit.get(context).isPassword,
+                                  SocialRegisterCubit.get(context).isPassword,
                               prefixIcon: const Icon(Icons.lock_outline),
                               validator: (String? value) {
                                 if (value!.isEmpty) {
@@ -158,7 +158,7 @@ class SocialRegisterScreen extends StatelessWidget {
                               controller: passwordController,
                               colorSuffixIcon: Colors.pink,
                               suffixIcon:
-                              SocialRegisterCubit.get(context).suffix,
+                                  SocialRegisterCubit.get(context).suffix,
                             ),
                             const SizedBox(
                               height: 15,
@@ -170,10 +170,10 @@ class SocialRegisterScreen extends StatelessWidget {
                                   if (formKey.currentState!.validate()) {
                                     SocialRegisterCubit.get(context)
                                         .userRegister(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                        phone: phoneController.text,
-                                        name: nameController.text);
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                            phone: phoneController.text,
+                                            name: nameController.text);
                                   }
                                 },
                                 background: Colors.pink,
