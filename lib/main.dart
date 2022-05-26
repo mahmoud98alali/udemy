@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:udemy/layout/shop_app/shop_layout/cubit/cubit.dart';
@@ -8,6 +9,7 @@ import 'package:udemy/layout/social_app/cubit/cubit.dart';
 import 'package:udemy/layout/social_app/social_layout.dart';
 import 'package:udemy/modules/shop_app/login_screen/login_screen.dart';
 import 'package:udemy/shared/bloc_observer.dart';
+import 'package:udemy/shared/components/components.dart';
 import 'package:udemy/shared/components/contains.dart';
 import 'package:udemy/shared/cubit/cubit.dart';
 import 'package:udemy/shared/cubit/states.dart';
@@ -21,11 +23,44 @@ import 'modules/ibm_app/IBM/IBMScreen.dart';
 import 'modules/shop_app/on_boarding/on_boarding_screen.dart';
 import 'modules/social_app/social_login/login_screen.dart';
 
+
+Future<void> firebaseBackGround(RemoteMessage message) async
+{ await Firebase.initializeApp();
+  print(message.data.toString());
+  print('.......................');
+
+  showToast(text: 'on Background messaging', state: ToastStates.SUCCESS);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  DioHelper.init();
 
+  var token = await FirebaseMessaging.instance.getToken();
+  print('.......................');
+  print("token =  $token");
+  print('.......................');
+  FirebaseMessaging.onMessage.listen((event)
+  { print('on message');
+    print(event.data.toString());
+  print('.......................');
+
+  showToast(text: 'on message', state: ToastStates.SUCCESS);
+  }
+  );
+
+  FirebaseMessaging.onMessageOpenedApp.listen((event)
+  { print('.......................');
+  print(event.data.toString());
+  print('.......................');
+
+  showToast(text: 'on message opened app', state: ToastStates.SUCCESS);
+  }
+  );
+
+  FirebaseMessaging.onBackgroundMessage(firebaseBackGround);
+
+  DioHelper.init();
   await CacheHelper.init();
   Widget? widget;
 
